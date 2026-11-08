@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Navi — agente de monitoramento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f8fa; --card:#ffffff; --ink:#1b1f27; --muted:#5d6676; --line:#e3e6eb;
+  --accent:#0b6bcb; --accent-soft:#e7f1fb; --red:#c62828; --red-soft:#fdecec;
+  --green:#2e7d32; --green-soft:#e9f5ea; --amber:#a15c00; --amber-soft:#fff4e0;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#11141a; --card:#1a1e26; --ink:#e8ebf0; --muted:#9aa3b2; --line:#2b313c;
+    --accent:#5aa9f5; --accent-soft:#16283b; --red:#ef6b6b; --red-soft:#3a1c1e;
+    --green:#6cc070; --green-soft:#1a2e1c; --amber:#f0b04a; --amber-soft:#33270f;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+main{max-width:920px;margin:0 auto;padding:40px 16px 64px}
+header .tag{display:inline-block;font-size:13px;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:4px 10px;border-radius:999px}
+h1{font-size:clamp(28px,5vw,40px);line-height:1.15;margin:14px 0 10px}
+h2{font-size:22px;margin:44px 0 14px}
+h3{font-size:16px;margin:0 0 6px}
+p.lead{font-size:18px;color:var(--muted);max-width:680px;margin:0}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.card .ico{font-size:22px;display:block;margin-bottom:8px}
+.flow{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));counter-reset:s}
+.step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;position:relative}
+.step::before{counter-increment:s;content:counter(s);display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:13px;font-weight:700;margin-bottom:8px}
+.step p{margin:0;font-size:14px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:15px}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+tr:last-child td{border-bottom:0}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.r{color:var(--red);background:var(--red-soft)} .g{color:var(--green);background:var(--green-soft)} .a{color:var(--amber);background:var(--amber-soft)}
+.slack{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:16px 18px;font-size:14px;line-height:1.7;overflow-x:auto}
+.slack b{display:block;margin-top:8px}
+.slack b:first-child{margin-top:0}
+ul.rules{padding-left:20px;margin:0} ul.rules li{margin:6px 0}
+.wrap{overflow-x:auto}
+footer{margin-top:48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <span class="tag">Qualidade de Operação · Seazone</span>
+  <h1>Navi, a agente de monitoramento da área</h1>
+  <p class="lead">A Navi acompanha por mim as tarefas, as pendências, as rotinas e os sinais de risco da área. Todo dia ela me diz o que precisa de atenção, e toda sexta fecha a semana com um panorama.</p>
+</header>
+
+<h2>O que ela monitora</h2>
+<div class="grid">
+  <div class="card"><span class="ico">💬</span><h3>Pendências</h3><p>DMs, grupos e menções no Slack sem resposta, suportes do Suporte Unificado e tarefas do Taskdex que dependem de mim.</p></div>
+  <div class="card"><span class="ico">🔁</span><h3>Rotinas</h3><p>Se os KPIs de Qualidade e de Comentários foram lançados no dia e se as rotinas do Taskdex tiveram registro no período combinado.</p></div>
+  <div class="card"><span class="ico">⭐</span><h3>Notas de avaliação</h3><p>Airbnb dos últimos 7 dias e do trimestre e Booking anual, comparados com a meta e com a semana anterior.</p></div>
+  <div class="card"><span class="ico">🚨</span><h3>Alertas de criticidade</h3><p>O que está estourado ou em risco vai para o topo da mensagem, antes de todo o resto.</p></div>
+</div>
+
+<h2>Quando ela fala comigo</h2>
+<div class="grid">
+  <div class="card"><h3>Todo dia, 15h</h3><p>Resumo diário na minha DM do Slack: alertas, rotinas do dia e pendências, com o link e quem pediu cada uma.</p></div>
+  <div class="card"><h3>Toda sexta, 16h</h3><p>Panorama da semana: o que fechou, o que atrasou, o que vence na próxima semana, como estão as rotinas e as notas, e a pauta para alinhar com a gestão.</p></div>
+</div>
+
+<h2>O que conta como alerta 🔴</h2>
+<div class="wrap">
+<table>
+  <thead><tr><th>Alerta</th><th>Quando dispara</th><th>Fonte</th></tr></thead>
+  <tbody>
+    <tr><td><span class="pill r">SLA / prazo</span></td><td>Suporte com SLA vencido ou tarefa com prazo vencido</td><td>Suporte Unificado, Taskdex</td></tr>
+    <tr><td><span class="pill r">Rotina não feita</span></td><td>KPIs do dia não lançados até 15h; rotina diária sem registro há mais de 1 dia útil, semanal há mais de 7 dias, mensal há mais de 31 dias</td><td>kpi-system, Taskdex</td></tr>
+    <tr><td><span class="pill r">Nota caindo</span></td><td>Nota abaixo da meta (7 dias 4,75 · trimestre 4,80 · Booking 4,50) ou nota de 7 dias menor que a da semana anterior</td><td>Nekt</td></tr>
+    <tr><td><span class="pill r">Ocorrência parada</span></td><td>Card em Nova Ocorrência há mais de 3 dias sem triagem</td><td>Central de ocorrências e multas</td></tr>
+    <tr><td><span class="pill r">Gestão sem resposta</span></td><td>Pedido da minha gestora no Slack sem resposta há mais de 24h</td><td>Slack</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Como ela funciona</h2>
+<div class="flow">
+  <div class="step"><h3>Agenda</h3><p>O Agendador do Windows chama a Navi no horário, no meu computador.</p></div>
+  <div class="step"><h3>Lê</h3><p>Slack, Suporte Unificado, Taskdex, kpi-system, Nekt e a central de ocorrências. Só leitura.</p></div>
+  <div class="step"><h3>Classifica</h3><p>Separa o que é crítico, o que é rotina e o que é pendência, do mais atrasado para o mais recente.</p></div>
+  <div class="step"><h3>Envia</h3><p>Manda uma mensagem só para mim, pelo app Navi no Slack.</p></div>
+</div>
+
+<h2>Exemplo de mensagem diária</h2>
+<div class="slack">
+  <b>Navi — suas pendências (12/11, 15h)</b>
+  <b>🚨 Alertas (3)</b>
+  • 🔴 KPIs Comentários: 18 de 30 lançados hoje<br>
+  • 🔴 Nota Airbnb 7 dias 4,71 (meta 4,75; semana anterior 4,76)<br>
+  • 🔴 Suporte com SLA vencido em 11/11 · abrir
+  <b>Rotinas de hoje</b>
+  • KPIs Qualidade: 15/15 · KPIs Comentários: 18/30<br>
+  • Nova Ocorrência: 9 cards, nenhum parado há +3 dias
+  <b>Slack (2)</b>
+  • Fulana — pediu o parecer do card X · abrir
+  <b>Suporte Unificado (1)</b> • …
+  <b>Taskdex (4)</b> • …
+</div>
+<p style="color:var(--muted);font-size:14px">Exemplo ilustrativo, com números fictícios.</p>
+
+<h2>Regras que ela segue</h2>
+<div class="card">
+<ul class="rules">
+  <li><b>Somente leitura.</b> Ela não responde, não reage, não move card e não edita nada em lugar nenhum. A única ação é enviar o resumo para mim.</li>
+  <li><b>Fala só comigo.</b> A mensagem vai para a minha DM e para mais ninguém.</li>
+  <li><b>Sem chute.</b> Se uma fonte não abre, ela avisa no fim da mensagem em vez de inventar número ou link.</li>
+  <li><b>Sem credenciais.</b> Se uma mensagem tiver senha ou chave, ela escreve só "mensagem com credencial".</li>
+  <li><b>Mesmas regras das rotinas manuais.</b> Notas cortadas em 2 casas (nunca arredondadas) e KPIs conferidos contra os mesmos IDs do kpi-system.</li>
+</ul>
+</div>
+
+<h2>Próximos passos</h2>
+<div class="grid">
+  <div class="card"><span class="pill g">no ar</span><h3 style="margin-top:8px">Resumo diário com alertas</h3><p>Pendências, rotinas e alertas às 15h.</p></div>
+  <div class="card"><span class="pill a">a partir de 13/11</span><h3 style="margin-top:8px">Panorama de sexta</h3><p>Fechamento da semana para a reunião com a gestão.</p></div>
+  <div class="card"><span class="pill a">próximo</span><h3 style="margin-top:8px">Links do Taskdex</h3><p>Levar cada tarefa direto para a linha da lista.</p></div>
+</div>
+
+<footer>Navi · Qualidade de Operação · Victoria Magri · Seazone · novembro de 2026</footer>
+</main>
+</body>
+</html>
